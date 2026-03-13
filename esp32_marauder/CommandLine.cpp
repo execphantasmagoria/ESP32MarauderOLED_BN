@@ -244,6 +244,7 @@ void CommandLine::runCommand(String input) {
     Serial.println(HELP_PORT_SCAN_CMD);
     Serial.println(HELP_SIGSTREN_CMD);
     Serial.println(HELP_SCAN_ALL_CMD);
+    Serial.println(HELP_KINDRED);
     Serial.println(HELP_SCANAP_CMD);
     //Serial.println(HELP_SCANSTA_CMD);
     Serial.println(HELP_SNIFF_RAW_CMD);
@@ -694,6 +695,10 @@ void CommandLine::runCommand(String input) {
       Serial.print(F("Scanning for APs and Stations. Stop with "));
       Serial.println(STOPSCAN_CMD);
       wifi_scan_obj.StartScan(WIFI_SCAN_AP_STA, TFT_MAGENTA);
+    }
+    else if (cmd_args.get(0) == KINDRED)
+    {
+      Serial.print(F("Poking kindred...!"));
     }
     else if (cmd_args.get(0) == SCANAP_CMD) {
       int full_sw = -1;
