@@ -2002,6 +2002,7 @@ int WiFiScan::clearStations() {
   return num_cleared;
 }
 
+#define MEM_LOWER_LIM 10000
 bool WiFiScan::checkMem() {
   if (esp_get_free_heap_size() <= MEM_LOWER_LIM)
     return false;
