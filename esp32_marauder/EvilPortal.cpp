@@ -2,7 +2,9 @@
 
 char apName[MAX_AP_NAME_SIZE] = "PORTAL";
 
-#ifdef HAS_PSRAM
+#ifndef HAS_PSRAM
+  char index_html[MAX_HTML_SIZE] = "TEST";
+#else
   char* index_html = nullptr;
 #endif
 
