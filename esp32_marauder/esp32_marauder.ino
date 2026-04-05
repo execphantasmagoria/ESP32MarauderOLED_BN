@@ -88,6 +88,10 @@ CommandLine cli_obj;
   MenuFunctions menu_function_obj;
 #endif
 
+#ifdef HAS_OLED_DISPLAY
+  OledDisplay oled_display_obj;
+#endif
+
 #if defined(HAS_SD) && !defined(HAS_C5_SD)
   SDInterface sd_obj;
 #endif
@@ -441,7 +445,7 @@ void loop()
   #endif
 
   // Update all of our objects
-  cli_obj.main(currentTime);
+  cli_obj.main(currentTime); 
   wifi_scan_obj.main(currentTime);
 
   #ifdef HAS_GPS
