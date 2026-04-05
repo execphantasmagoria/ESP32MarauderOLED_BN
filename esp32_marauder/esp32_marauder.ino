@@ -89,6 +89,7 @@ CommandLine cli_obj;
 #endif
 
 #ifdef HAS_OLED_DISPLAY
+  #include "OledDisplay.h"
   OledDisplay oled_display_obj;
 #endif
 
@@ -311,6 +312,10 @@ void setup()
     display_obj.tft.setTextColor(TFT_WHITE, TFT_BLACK);
   #endif
 
+  #ifdef HAS_OLED_DISPLAY
+    oled_display_obj.begin();
+  #endif
+
   // Init PWM brightness AFTER display init (so ledcAttach overrides TFT_eSPI's pinMode)
   #ifndef HAS_MINI_SCREEN
     brightnessInit();
@@ -414,6 +419,10 @@ void setup()
   wifi_scan_obj.StartScan(WIFI_SCAN_OFF);
   
   cli_obj.RunSetup();
+
+  #ifdef HAS_OLED_DISPLAY
+    oled_display_obj.showTextAtPos("Setup Complete", 0, 12);
+  #endif
 }
 
 

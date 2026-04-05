@@ -34,7 +34,7 @@
   //#define MARAUDER_V8
   //#define MARAUDER_MINI_V3
   //#define DUAL_MINI_C5
-  //#define ESP32_OLED_NO_TOUCH
+  #define ESP32_OLED_NO_TOUCH
   //// END BOARD TARGETS
 
   #define JSON_SETTING_SIZE 2048
@@ -526,6 +526,8 @@
   #ifdef ESP32_OLED_NO_TOUCH
     //#define HAS_TOUCH
     #define HAS_OLED_DISPLAY
+    #define SDA_PIN 21
+    #define SCL_PIN 22
     //#define HAS_FLIPPER_LED
     //#define FLIPPER_ZERO_HAT
     //#define HAS_BATTERY
