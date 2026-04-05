@@ -724,3 +724,15 @@ void Display::buildBanner(String msg, int xpos)
 }
 
 #endif
+#ifdef HAS_OLED_DISPLAY
+OledDisplay::OledDisplay() {}
+
+void OledDisplay::showTextAtPos(String text, int x, int y)
+{
+
+  u8g2.clearBuffer();
+  u8g2.setFont(u8g2_font_6x10_tf);
+  u8g2.drawStr(x, y, text.c_str());
+  u8g2.sendBuffer();
+}
+#endif
