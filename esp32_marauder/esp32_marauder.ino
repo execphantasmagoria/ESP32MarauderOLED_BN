@@ -422,6 +422,7 @@ void setup()
 
   #ifdef HAS_OLED_DISPLAY
     oled_display_obj.showTextAtPos("Setup Complete", 0, 12);
+    delay(2000);
   #endif
 }
 
@@ -481,6 +482,11 @@ void loop()
     stickc_led.main();
   #elif defined(HAS_NEOPIXEL_LED)
     led_obj.main(currentTime);
+  #endif
+
+  #ifdef HAS_OLED_DISPLAY
+    delay(500);
+    oled_display_obj.showMainMenu();
   #endif
 
   #ifdef HAS_SCREEN

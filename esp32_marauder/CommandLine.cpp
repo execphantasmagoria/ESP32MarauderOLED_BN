@@ -700,6 +700,35 @@ void CommandLine::runCommand(String input) {
     {
       Serial.print(F("Poking kindred...!"));
     }
+    else if (cmd_args.get(0) == OLED_MENU_MAIN){
+      #ifdef HAS_OLED_DISPLAY
+        oled_display_obj.showMainMenu();
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+    }
+    else if (cmd_args.get(0) == OLED_MENU_NAV_UP){
+      #ifdef HAS_OLED_DISPLAY
+        oled_display_obj.navigateMenu("up");
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+
+    }
+    else if (cmd_args.get(0) == OLED_MENU_NAV_DOWN){
+      #ifdef HAS_OLED_DISPLAY
+        oled_display_obj.navigateMenu("down");
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+    }
+    else if (cmd_args.get(0) == OLED_MENU_SELECT){
+      #ifdef HAS_OLED_DISPLAY
+        oled_display_obj.navigateMenu("select");
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+    }
     else if (cmd_args.get(0) == SCANAP_CMD) {
       int full_sw = -1;
       #ifdef HAS_SCREEN
