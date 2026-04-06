@@ -10,7 +10,7 @@
 #include <Wire.h>
 #include <Arduino.h>
   // XBM data for bitmap_screen_mainmenu_0
-  static unsigned char bitmap_screen_mainmenu_0_bits[] = {
+  static unsigned char bitmap_logo_bits[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -98,8 +98,8 @@
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
     0x00, 0x00, 0x00, 0x00
   };
-  #define bitmap_screen_mainmenu_0_width 128
-  #define bitmap_screen_mainmenu_0_height 64
+  #define bitmap_logo_width 128
+  #define bitmap_logo_height 64
   class OledDisplay
   {
     public:
@@ -110,8 +110,12 @@
 
       // void showCenterText(String text, int y);
       void showTextAtPos(String text, int x, int y);
-      void showMainMenu();
-      void navigateMenu(String direction);
+      void drawBanner(String text);
+      void drawMenuItem(String text, int index, bool isSelected = false);
+      void drawLogo(int x, int y);
+      void show();
+      void clear();
+      void navigateMenu(String direction, int menuSize);
       // void showASCIITwoPartText(const String& leftText, const String& rightText, int x, int y);
       // void showWrappingText(const String& text, int x, int y, int maxWidth);
       // void displayBuffer(bool do_clear = false);

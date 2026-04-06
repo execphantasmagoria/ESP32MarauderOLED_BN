@@ -90,7 +90,10 @@ CommandLine cli_obj;
 
 #ifdef HAS_OLED_DISPLAY
   #include "OledDisplay.h"
+  #include "OledMenuFunctions.h"
+
   OledDisplay oled_display_obj;
+  OledMenuFunctions oled_menu_function_obj;
 #endif
 
 #if defined(HAS_SD) && !defined(HAS_C5_SD)
@@ -314,6 +317,7 @@ void setup()
 
   #ifdef HAS_OLED_DISPLAY
     oled_display_obj.begin();
+    oled_menu_function_obj.setupMenus();
   #endif
 
   // Init PWM brightness AFTER display init (so ledcAttach overrides TFT_eSPI's pinMode)
@@ -486,7 +490,7 @@ void loop()
 
   #ifdef HAS_OLED_DISPLAY
     delay(500);
-    oled_display_obj.showMainMenu();
+    oled_menu_function_obj.displayMenu(oled_menu_function_obj.currentMenu, oled_display_obj.currentMenuIndex);
   #endif
 
   #ifdef HAS_SCREEN

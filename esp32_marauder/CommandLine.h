@@ -12,6 +12,7 @@
 
 #include "WiFiScan.h"
 #ifdef HAS_OLED_DISPLAY
+  #include "OledMenuFunctions.h"
   #include "OledDisplay.h"
 #endif
 //#include "Web.h"
@@ -30,6 +31,7 @@
 
 extern WiFiScan wifi_scan_obj;
 #ifdef HAS_OLED_DISPLAY
+  extern OledMenuFunctions oled_menu_function_obj;
   extern OledDisplay oled_display_obj;
 #endif
 //extern Web web_obj;

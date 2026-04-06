@@ -702,14 +702,14 @@ void CommandLine::runCommand(String input) {
     }
     else if (cmd_args.get(0) == OLED_MENU_MAIN){
       #ifdef HAS_OLED_DISPLAY
-        oled_display_obj.showMainMenu();
+        oled_menu_function_obj.changeMenu(&oled_menu_function_obj.mainMenu);
       #else
         Serial.println(F("This hardware does not have an OLED display"));
       #endif
     }
     else if (cmd_args.get(0) == OLED_MENU_NAV_UP){
       #ifdef HAS_OLED_DISPLAY
-        oled_display_obj.navigateMenu("up");
+        oled_menu_function_obj.serialNavigateMenu("up");
       #else
         Serial.println(F("This hardware does not have an OLED display"));
       #endif
@@ -717,14 +717,14 @@ void CommandLine::runCommand(String input) {
     }
     else if (cmd_args.get(0) == OLED_MENU_NAV_DOWN){
       #ifdef HAS_OLED_DISPLAY
-        oled_display_obj.navigateMenu("down");
+        oled_menu_function_obj.serialNavigateMenu("down");
       #else
         Serial.println(F("This hardware does not have an OLED display"));
       #endif
     }
-    else if (cmd_args.get(0) == OLED_MENU_SELECT){
+    else if (cmd_args.get(0) == OLED_MENU_NAV_SELECT){
       #ifdef HAS_OLED_DISPLAY
-        oled_display_obj.navigateMenu("select");
+        oled_menu_function_obj.serialNavigateMenu("select");
       #else
         Serial.println(F("This hardware does not have an OLED display"));
       #endif
