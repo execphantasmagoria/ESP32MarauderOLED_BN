@@ -88,6 +88,14 @@ CommandLine cli_obj;
   MenuFunctions menu_function_obj;
 #endif
 
+#ifdef HAS_OLED_DISPLAY
+  #include "OledDisplay.h"
+  #include "OledMenuFunctions.h"
+
+  OledDisplay oled_display_obj;
+  OledMenuFunctions oled_menu_function_obj;
+#endif
+
 #if defined(HAS_SD) && !defined(HAS_C5_SD)
   SDInterface sd_obj;
 #endif
@@ -307,6 +315,11 @@ void setup()
     display_obj.tft.setTextColor(TFT_WHITE, TFT_BLACK);
   #endif
 
+  #ifdef HAS_OLED_DISPLAY
+    oled_display_obj.begin();
+    oled_menu_function_obj.setupMenus();
+  #endif
+
   // Init PWM brightness AFTER display init (so ledcAttach overrides TFT_eSPI's pinMode)
   #ifndef HAS_MINI_SCREEN
     brightnessInit();
@@ -410,6 +423,11 @@ void setup()
   wifi_scan_obj.StartScan(WIFI_SCAN_OFF);
   
   cli_obj.RunSetup();
+
+  #ifdef HAS_OLED_DISPLAY
+    oled_display_obj.showTextAtPos("Setup Complete", 0, 12);
+    delay(2000);
+  #endif
 }
 
 
@@ -441,7 +459,7 @@ void loop()
   #endif
 
   // Update all of our objects
-  cli_obj.main(currentTime);
+  cli_obj.main(currentTime); 
   wifi_scan_obj.main(currentTime);
 
   #ifdef HAS_GPS
@@ -468,6 +486,11 @@ void loop()
     stickc_led.main();
   #elif defined(HAS_NEOPIXEL_LED)
     led_obj.main(currentTime);
+  #endif
+
+  #ifdef HAS_OLED_DISPLAY
+    delay(500);
+    oled_menu_function_obj.displayMenu(oled_menu_function_obj.currentMenu, oled_display_obj.currentMenuIndex);
   #endif
 
   #ifdef HAS_SCREEN

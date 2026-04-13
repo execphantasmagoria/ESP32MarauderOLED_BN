@@ -244,6 +244,7 @@ void CommandLine::runCommand(String input) {
     Serial.println(HELP_PORT_SCAN_CMD);
     Serial.println(HELP_SIGSTREN_CMD);
     Serial.println(HELP_SCAN_ALL_CMD);
+    Serial.println(HELP_KINDRED);
     Serial.println(HELP_SCANAP_CMD);
     //Serial.println(HELP_SCANSTA_CMD);
     Serial.println(HELP_SNIFF_RAW_CMD);
@@ -694,6 +695,39 @@ void CommandLine::runCommand(String input) {
       Serial.print(F("Scanning for APs and Stations. Stop with "));
       Serial.println(STOPSCAN_CMD);
       wifi_scan_obj.StartScan(WIFI_SCAN_AP_STA, TFT_MAGENTA);
+    }
+    else if (cmd_args.get(0) == KINDRED)
+    {
+      Serial.print(F("Poking kindred...!"));
+    }
+    else if (cmd_args.get(0) == OLED_MENU_MAIN){
+      #ifdef HAS_OLED_DISPLAY
+        oled_menu_function_obj.changeMenu(&oled_menu_function_obj.mainMenu);
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+    }
+    else if (cmd_args.get(0) == OLED_MENU_NAV_UP){
+      #ifdef HAS_OLED_DISPLAY
+        oled_menu_function_obj.serialNavigateMenu("up");
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+
+    }
+    else if (cmd_args.get(0) == OLED_MENU_NAV_DOWN){
+      #ifdef HAS_OLED_DISPLAY
+        oled_menu_function_obj.serialNavigateMenu("down");
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
+    }
+    else if (cmd_args.get(0) == OLED_MENU_NAV_SELECT){
+      #ifdef HAS_OLED_DISPLAY
+        oled_menu_function_obj.serialNavigateMenu("select");
+      #else
+        Serial.println(F("This hardware does not have an OLED display"));
+      #endif
     }
     else if (cmd_args.get(0) == SCANAP_CMD) {
       int full_sw = -1;

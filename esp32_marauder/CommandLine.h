@@ -11,6 +11,10 @@
 #endif 
 
 #include "WiFiScan.h"
+#ifdef HAS_OLED_DISPLAY
+  #include "OledMenuFunctions.h"
+  #include "OledDisplay.h"
+#endif
 //#include "Web.h"
 #ifdef HAS_SD
   #include "SDInterface.h"
@@ -26,6 +30,10 @@
 #endif
 
 extern WiFiScan wifi_scan_obj;
+#ifdef HAS_OLED_DISPLAY
+  extern OledMenuFunctions oled_menu_function_obj;
+  extern OledDisplay oled_display_obj;
+#endif
 //extern Web web_obj;
 #ifdef HAS_SD
   extern SDInterface sd_obj;
@@ -66,6 +74,11 @@ const char PROGMEM KARMA_CMD[] = "karma";
 const char PROGMEM PACKET_COUNT_CMD[] = "packetcount";
 const char PROGMEM SIGSTREN_CMD[] = "sigmon";
 const char PROGMEM SCAN_ALL_CMD[] = "scanall";
+const char PROGMEM KINDRED[] = "kindred";
+const char PROGMEM OLED_MENU_MAIN[] = "oledmain";
+const char PROGMEM OLED_MENU_NAV_UP[] = "olednavup";
+const char PROGMEM OLED_MENU_NAV_DOWN[] = "olednavdown";
+const char PROGMEM OLED_MENU_NAV_SELECT[] = "olednavselect";
 const char PROGMEM SCANAP_CMD[] = "scanap";
 //const char PROGMEM SCANSTA_CMD[] = "scansta";
 const char PROGMEM SNIFF_RAW_CMD[] = "sniffraw";
@@ -141,6 +154,7 @@ const char PROGMEM HELP_KARMA_CMD[] = "karma -p <index>";
 const char PROGMEM HELP_PACKET_COUNT_CMD[] = "packetcount";
 const char PROGMEM HELP_SIGSTREN_CMD[] = "sigmon";
 const char PROGMEM HELP_SCAN_ALL_CMD[] = "scanall";
+const char PROGMEM HELP_KINDRED[] = "kindred";
 const char PROGMEM HELP_SCANAP_CMD[] = "scanap";
 //const char PROGMEM HELP_SCANSTA_CMD[] = "scansta";
 const char PROGMEM HELP_SNIFF_RAW_CMD[] = "sniffraw";
