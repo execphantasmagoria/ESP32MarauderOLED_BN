@@ -37,6 +37,7 @@ public:
   Menu* currentMenu;
   Menu mainMenu;
   Menu wifiMenu;
+  Menu scanAPsMenu;
 };
 
 #endif // HAS_OLED_DISPLAY

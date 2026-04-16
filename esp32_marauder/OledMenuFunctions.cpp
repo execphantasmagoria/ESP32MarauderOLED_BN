@@ -18,7 +18,7 @@ void OledMenuFunctions::setupMenus()
     wifiMenu.name = "WiFi Menu";
     wifiMenu.items = new LinkedList<MenuItem>();
     wifiMenu.items->add(MenuItem{"WiFi Sniffer", false, []() { /* WiFi Sniffer code */ }});
-    wifiMenu.items->add(MenuItem{"WiFi Scanner", false, []() { /* WiFi Scanner code */ }});
+    wifiMenu.items->add(MenuItem{"WiFi Scanner", false, []() {  this->changeMenu(&scanAPsMenu); }});
     wifiMenu.items->add(MenuItem{"WiFi Attack", false, []() { /* WiFi Attack code */ }});
     wifiMenu.items->add(MenuItem{"Change MAC", false, []() { /* Change MAC code */ }});
     wifiMenu.items->add(MenuItem{"Change Mode", false, []() { /* Change mode code */ }});
@@ -26,6 +26,13 @@ void OledMenuFunctions::setupMenus()
     wifiMenu.items->add(MenuItem{"back", false, []() { /* Back to main menu code */ }});
     wifiMenu.parentMenu = &mainMenu;
 
+    //Scan APs Menu
+    scanAPsMenu.name = "Scan APs";
+    scanAPsMenu.items = new LinkedList<MenuItem>();
+    scanAPsMenu.items->add(MenuItem{"Scan APs on same channel", false, []() { /* same channel scan code */ }});    
+    scanAPsMenu.items->add(MenuItem{"Scan APs on all channels", false, []() { /* all channel scan code */ }});
+    scanAPsMenu.items->add(MenuItem{"back", false, []() { /* Back to WiFi menu code */ }});
+    scanAPsMenu.parentMenu = &wifiMenu;
 }
 
 void OledMenuFunctions::changeMenu(Menu *menu)
