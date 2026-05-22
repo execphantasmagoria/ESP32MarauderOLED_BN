@@ -23,7 +23,7 @@ void OledMenuFunctions::setupMenus()
     wifiMenu.items->add(MenuItem{"Change MAC", false, []() { /* Change MAC code */ }});
     wifiMenu.items->add(MenuItem{"Change Mode", false, []() { /* Change mode code */ }});
     wifiMenu.items->add(MenuItem{"Channel Analyzer", false, []() { /* Channel Analyzer code */ }});
-    wifiMenu.items->add(MenuItem{"back", false, []() { /* Back to main menu code */ }});
+    wifiMenu.items->add(MenuItem{"back", false, [this]() { this->changeMenu(&mainMenu); }});
     wifiMenu.parentMenu = &mainMenu;
 
     //Scan APs Menu
@@ -31,7 +31,7 @@ void OledMenuFunctions::setupMenus()
     scanAPsMenu.items = new LinkedList<MenuItem>();
     scanAPsMenu.items->add(MenuItem{"Scan APs on same channel", false, []() { /* same channel scan code */ }});    
     scanAPsMenu.items->add(MenuItem{"Scan APs on all channels", false, []() { /* all channel scan code */ }});
-    scanAPsMenu.items->add(MenuItem{"back", false, []() { /* Back to WiFi menu code */ }});
+    scanAPsMenu.items->add(MenuItem{"back", false, [this]() { this->changeMenu(&wifiMenu); }});
     scanAPsMenu.parentMenu = &wifiMenu;
 }
 
