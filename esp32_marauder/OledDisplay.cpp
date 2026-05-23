@@ -1,5 +1,5 @@
 #include "OledDisplay.h"
-
+#ifdef HAS_OLED_DISPLAY
 OledDisplay::OledDisplay() {}
 
 void OledDisplay::begin() {
@@ -80,3 +80,4 @@ void OledDisplay::navigateMenu(String direction, int menuSize)
         }
     }
 }
+#endif

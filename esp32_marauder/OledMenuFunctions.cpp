@@ -1,5 +1,5 @@
 #include "OledMenuFunctions.h"
-
+#ifdef HAS_OLED_DISPLAY
 OledMenuFunctions::OledMenuFunctions() : currentMenu(&mainMenu)
 {
 }
@@ -85,3 +85,4 @@ OledMenuFunctions::~OledMenuFunctions()
     delete wifiMenu.parentMenu; // Assuming parentMenu is dynamically allocated, if not this line should be removed
 
 }
+#endif

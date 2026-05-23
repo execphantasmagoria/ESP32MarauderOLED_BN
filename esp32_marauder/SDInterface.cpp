@@ -21,7 +21,7 @@ bool SDInterface::initSD() {
     pinMode(SD_CS, OUTPUT);
 
     delay(10);
-    #if (defined(MARAUDER_M5STICKC)) || (defined(HAS_CYD_TOUCH)) || (defined(MARAUDER_CARDPUTER))
+    #if (defined(MARAUDER_M5STICKC)) || (defined(HAS_CYD_TOUCH)) || (defined(MARAUDER_CARDPUTER) || defined(ESP32_TFT_NO_TOUCH))
       /* Set up SPI SD Card using external pin header
       StickCPlus Header - SPI SD Card Reader
                   3v3   -   3v3
@@ -33,19 +33,23 @@ bool SDInterface::initSD() {
       */
       #if defined(MARAUDER_M5STICKC)
         enum { SPI_SCK = 0, SPI_MISO = 36, SPI_MOSI = 26 };
-      #elif defined(HAS_CYD_TOUCH) || defined(MARAUDER_CARDPUTER) || defined(HAS_SEPARATE_SD)
+      #elif defined(HAS_CYD_TOUCH) || defined(MARAUDER_CARDPUTER) || defined(ESP32_TFT_NO_TOUCH) || defined(HAS_SEPARATE_SD)
         enum { SPI_SCK = SD_SCK, SPI_MISO = SD_MISO, SPI_MOSI = SD_MOSI };
       #else
         enum { SPI_SCK = 0, SPI_MISO = 36, SPI_MOSI = 26 };
       #endif
-      #ifndef MARAUDER_CARDPUTER
-        this->spiExt = new SPIClass();
-      #else
+      #ifdef MARAUDER_CARDPUTER
         this->spiExt = new SPIClass(FSPI);
+      #elif defined(ESP32_TFT_NO_TOUCH)
+        Serial.println(F("Using external SPI configuration for TFT_NO_TOUCH..."));
+        this->spiExt = new SPIClass(HSPI);
+        Serial.println(F("spiExt initialized with HSPI..."));
+      #else
+        this->spiExt = new SPIClass();
       #endif
       Serial.println(F("Using external SPI configuration..."));
       this->spiExt->begin(SPI_SCK, SPI_MISO, SPI_MOSI, SD_CS);
-      if (!SD.begin(SD_CS, *(this->spiExt))) {
+      if (!SD.begin(SD_CS, *(this->spiExt), 4000000)) {
     #elif defined(HAS_C5_SD)
       Serial.println(F("Using C5 SD configuration..."));
       if (!SD.begin(SD_CS, *_spi)) {
@@ -57,8 +61,12 @@ bool SDInterface::initSD() {
       return false;
     }
     else {
+      Serial.println(F("SD Card mounted successfully"));
       this->supported = true;
       this->cardType = SD.cardType();
+
+      Serial.print(F("SD Supported: "));
+      Serial.println(this->supported);
 
       this->cardSizeMB = SD.cardSize() / (1024 * 1024);
     
@@ -100,6 +108,10 @@ File SDInterface::getFile(String path) {
 
     //if (file)
     return file;
+  }
+  else {
+    Serial.println(F("SD Card not supported"));
+    return File();
   }
 }
 

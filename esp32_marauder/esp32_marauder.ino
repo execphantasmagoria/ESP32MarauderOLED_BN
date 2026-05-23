@@ -96,6 +96,11 @@ CommandLine cli_obj;
   OledMenuFunctions oled_menu_function_obj;
 #endif
 
+#ifdef HAS_TFT_DISPLAY
+  #include "DisplayNoTouch.h"
+  TftDisplay tft_display_obj;
+#endif
+
 #if defined(HAS_SD) && !defined(HAS_C5_SD)
   SDInterface sd_obj;
 #endif
@@ -368,6 +373,14 @@ void setup()
         Serial.println(F("SD Card NOT Supported"));
 
     #endif
+  #endif
+
+  #ifdef HAS_TFT_DISPLAY
+    Serial.println(F("Initializing TFT display..."));
+    tft_display_obj.init();
+    Serial.println(F("TFT display initialized"));
+    tft_display_obj.testDraw();
+    Serial.println(F("TFT display test draw complete"));
   #endif
 
   wifi_scan_obj.RunSetup();

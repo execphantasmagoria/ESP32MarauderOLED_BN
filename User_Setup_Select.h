@@ -19,13 +19,13 @@
 
 // Only ONE line below should be uncommented.  Add extra lines and files as needed.
 
-//#include <User_Setup.h>           // Default setup is root library folder
+// #include <User_Setup.h>           // Default setup is root library folder
 
 //#include <User_Setup_og_marauder.h>
 //#include <User_Setup_id_receiver.h>
 //#include <User_Setup_marauder_mini.h>
 //#include <User_Setup_marauder_rev_feather.h>
-//#include <User_Setup_marauder_m5stickc.h>
+// #include <User_Setup_marauder_m5stickc.h>
 //#include <User_Setup_marauder_m5stickcp2.h>
 //#include <User_Setup_pocket_sdr.h>
 //#include <User_Setup_dual_nrf24.h>
@@ -36,6 +36,7 @@
 //#include <User_Setup_cyd_2usb.h>
 //#include <User_Setup_marauder_m5cardputer.h>
 //#include <User_Setup_cyd_3_5_inch.h>
+// #include <User_Setup_marauder_tft_notouch.h>
 
 //#include <User_Setups/Setup1_ILI9341.h>  // Setup file configured for my ILI9341
 //#include <User_Setups/Setup2_ST7735.h>   // Setup file configured for my ST7735
