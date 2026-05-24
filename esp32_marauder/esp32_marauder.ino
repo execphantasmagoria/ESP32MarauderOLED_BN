@@ -99,6 +99,10 @@ CommandLine cli_obj;
 #ifdef HAS_TFT_DISPLAY
   #include "DisplayNoTouch.h"
   TftDisplay tft_display_obj;
+
+  unsigned long pressStartTime = 0;
+  unsigned long pressDuration = 0;
+  bool isPressed = false;
 #endif
 
 #if defined(HAS_SD) && !defined(HAS_C5_SD)
@@ -195,6 +199,7 @@ uint32_t currentTime  = 0;
     #endif
   }
 
+
   void backlightOn() {
     #ifdef HAS_SCREEN
       BL_SET(BL_LEVELS[bl_level_idx]);
@@ -253,6 +258,16 @@ void setup()
 
   while(!Serial)
     delay(10);
+
+  #ifdef HAS_TFT_DISPLAY
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, HIGH);
+
+    pinMode(FAKE_GND_PIN, OUTPUT);
+    digitalWrite(FAKE_GND_PIN, LOW);
+
+    pinMode(TFT_BUTTON_PIN, INPUT_PULLUP);
+  #endif
 
   #ifdef HAS_C5_SD
     sharedSPI.begin(SD_SCK, SD_MISO, SD_MOSI);
@@ -504,6 +519,32 @@ void loop()
   #ifdef HAS_OLED_DISPLAY
     delay(500);
     oled_menu_function_obj.displayMenu(oled_menu_function_obj.currentMenu, oled_display_obj.currentMenuIndex);
+  #endif
+
+  #ifdef HAS_TFT_DISPLAY
+    int buttonState = digitalRead(TFT_BUTTON_PIN);
+
+    // Button is JUST pressed down
+    if (buttonState == LOW && !isPressed) {
+      pressStartTime = millis();
+      isPressed = true;
+    }
+
+    // Button is JUST released
+    if (buttonState == HIGH && isPressed) {
+      pressDuration = millis() - pressStartTime;
+      isPressed = false;
+
+      if (pressDuration >= LONG_PRESS_THRESHOLD) {
+        Serial.print("LONG PRESS detected! Held for: ");
+        Serial.print(pressDuration);
+        Serial.println(" ms");
+      } else if (pressDuration > 50) { 
+        Serial.print("NORMAL PRESS detected! Held for: ");
+        Serial.print(pressDuration);
+        Serial.println(" ms");
+      }
+    }
   #endif
 
   #ifdef HAS_SCREEN

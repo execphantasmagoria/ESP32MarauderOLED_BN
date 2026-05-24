@@ -23,7 +23,12 @@ extern SDInterface sd_obj;
 // #define TFT_SCLK  18
 // #define TFT_MOSI  23
 // #define TFT_MISO  -1
-// #define TFT_BL    -1
+// #define TFT_BL    17
+
+// SD_CS 15
+// SD_MOSI 25
+// SD_MISO 26
+// SD_SCK 27
 
 #define TFT_BLACK   0x0000
 #define TFT_WHITE   0xFFFF

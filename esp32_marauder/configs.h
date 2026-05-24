@@ -2055,8 +2055,12 @@
       #define TFT_CS 5
       #define TFT_DC 2
       #define TFT_RST 4
-      #define TFT_BL -1
+      #define TFT_BL 17
       #define TOUCH_CS -1
+
+      #define FAKE_GND_PIN 33
+      #define TFT_BUTTON_PIN 32
+      #define LONG_PRESS_THRESHOLD 1000
 
       #define SCREEN_BUFFER
 
